@@ -1,9 +1,8 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { useFonts } from "expo-font";
-import { LogBox, View, Text } from "react-native";
+import { LogBox, View, Text, StatusBar } from "react-native";
 import Routes from "./src/routes";
-import { COLORS } from "./src/constants";
 import { NavigationContainer } from "@react-navigation/native";
 const App = () => {
   const [loaded] = useFonts({
@@ -28,9 +27,9 @@ const App = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: COLORS.main,
         }}
       >
+        <StatusBar />
         <NavigationContainer>
           <Routes />
         </NavigationContainer>

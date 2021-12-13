@@ -6,7 +6,19 @@ const Stack = createStackNavigator<AppParamList>();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          elevation: 0,
+        },
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          color: "#333",
+          textTransform: "lowercase",
+        },
+      }}
+    >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Editor" component={Editor} />
     </Stack.Navigator>
