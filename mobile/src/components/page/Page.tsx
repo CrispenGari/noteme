@@ -4,41 +4,10 @@ import { Input } from "react-native-elements";
 import { FONTS, HEIGHT, WIDTH } from "../../constants";
 import Panel from "../panel/Panel";
 
-interface PageType {
-  content: string;
-  page: number;
-}
-const Page: React.FC<{
-  setPages: React.Dispatch<React.SetStateAction<PageType[]>>;
-  pageContent: PageType;
-  totalPages: number;
-}> = ({ setPages, pageContent, totalPages }) => {
-  const [height, setHeight] = React.useState(0);
-  const [lines, setLines] = React.useState(0);
-  const [pageFull, setPageFull] = React.useState(false);
-
-  const PADDING: number = 10;
-  const FONT_SIZE: number = 16;
-  const MAX_INPUT_HEIGHT: number = HEIGHT * 0.7 - PADDING;
-  const NUMBER_OF_LINES: number = Math.floor(MAX_INPUT_HEIGHT / FONT_SIZE);
-
-  React.useEffect(() => {
-    let mounted: boolean = true;
-    if (mounted) {
-      if (pageFull && mounted) {
-        setPages((prev) => [
-          ...prev,
-          {
-            content: "",
-            page: totalPages + 1,
-          },
-        ]);
-      }
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [pageFull]);
+const NUMBER_OF_LINES: number = 200;
+const Page: React.FC = () => {
+  const [content, setContent] = React.useState<string>("");
+  const [header, setHeader] = React.useState<string>("");
 
   return (
     <View
@@ -49,12 +18,26 @@ const Page: React.FC<{
       }}
     >
       <Panel />
+
       <TextInput
-        onContentSizeChange={(e) => {
-          if (e.nativeEvent.contentSize.height > MAX_INPUT_HEIGHT) {
-            setPageFull(true);
-          }
+        style={{
+          backgroundColor: "#f5f5f5",
+          width: "100%",
+          fontSize: 16,
+          fontFamily: FONTS.regularBold,
+          borderColor: "cornflowerblue",
+          borderRadius: 5,
+          borderWidth: 1,
+          padding: 10,
+          marginBottom: 5,
+          textAlignVertical: "top",
         }}
+        numberOfLines={2}
+        placeholder="notes title"
+      />
+      <TextInput
+        onChangeText={(text) => setContent(text)}
+        placeholder="type notes here"
         style={{
           backgroundColor: "#f5f5f5",
           flex: 1,
@@ -63,12 +46,12 @@ const Page: React.FC<{
           borderColor: "cornflowerblue",
           borderRadius: 5,
           borderWidth: 1,
-          padding: PADDING,
+          padding: 10,
           alignItems: "flex-start",
           fontFamily: FONTS.regular,
           textAlignVertical: "top",
           maxHeight: HEIGHT * 0.7,
-          fontSize: FONT_SIZE,
+          fontSize: 16,
         }}
         multiline
         autoCapitalize="sentences"
@@ -76,23 +59,34 @@ const Page: React.FC<{
         selectionColor="cornflowerblue"
         spellCheck
         underlineColorAndroid={"transparent"}
-        returnKeyType="next"
         numberOfLines={NUMBER_OF_LINES}
       />
       <View
         style={{
           justifyContent: "flex-end",
-          alignItems: "flex-end",
+          alignItems: "center",
           padding: 10,
+          flexDirection: "row",
         }}
       >
         <Text
           style={{
             fontFamily: FONTS.regular,
-            fontSize: 16,
+            fontSize: 15,
+            color: "gray",
+            marginRight: 10,
           }}
         >
-          {pageContent.page}/{totalPages}
+          {content.trim().length} character(s)
+        </Text>
+        <Text
+          style={{
+            fontFamily: FONTS.regular,
+            fontSize: 15,
+            color: "gray",
+          }}
+        >
+          {content.trim().split(/\s/).length} words
         </Text>
       </View>
     </View>
