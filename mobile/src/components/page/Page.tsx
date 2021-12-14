@@ -2,12 +2,24 @@ import React from "react";
 import { View, Text, TextInput } from "react-native";
 import { Input } from "react-native-elements";
 import { FONTS, HEIGHT, WIDTH } from "../../constants";
+import { PageType } from "../../types";
 import Panel from "../panel/Panel";
 
 const NUMBER_OF_LINES: number = 200;
-const Page: React.FC = () => {
+
+interface PageProps {
+  page: PageType;
+  seeTranslation: boolean;
+  setSeeTranslation: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Page: React.FC<PageProps> = ({
+  page: { withPanel },
+  seeTranslation,
+  setSeeTranslation,
+}) => {
   const [content, setContent] = React.useState<string>("");
   const [header, setHeader] = React.useState<string>("");
+  const [t, setT] = React.useState(false);
 
   return (
     <View
@@ -17,24 +29,30 @@ const Page: React.FC = () => {
         padding: 10,
       }}
     >
-      <Panel />
-
-      <TextInput
-        style={{
-          backgroundColor: "#f5f5f5",
-          width: "100%",
-          fontSize: 16,
-          fontFamily: FONTS.regularBold,
-          borderColor: "cornflowerblue",
-          borderRadius: 5,
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 5,
-          textAlignVertical: "top",
-        }}
-        numberOfLines={2}
-        placeholder="notes title"
-      />
+      {withPanel && (
+        <Panel
+          seeTranslation={seeTranslation}
+          setSeeTranslation={setSeeTranslation}
+        />
+      )}
+      {withPanel && (
+        <TextInput
+          style={{
+            backgroundColor: "#f5f5f5",
+            width: "100%",
+            fontSize: 16,
+            fontFamily: FONTS.regularBold,
+            borderColor: "cornflowerblue",
+            borderRadius: 5,
+            borderWidth: 1,
+            padding: 10,
+            marginBottom: 5,
+            textAlignVertical: "top",
+          }}
+          numberOfLines={2}
+          placeholder="notes title"
+        />
+      )}
       <TextInput
         onChangeText={(text) => setContent(text)}
         placeholder="type notes here"
@@ -59,7 +77,7 @@ const Page: React.FC = () => {
         selectionColor="cornflowerblue"
         spellCheck
         underlineColorAndroid={"transparent"}
-        numberOfLines={NUMBER_OF_LINES}
+        numberOfLines={15}
       />
       <View
         style={{

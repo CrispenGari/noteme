@@ -23,3 +23,46 @@ export const COLORS = {
   secondary: "#0e9aa7",
   primary: "#4b86b4",
 };
+
+interface LanguageType {
+  name: string;
+  id: number;
+  code: string;
+}
+export const LANGUAGES: LanguageType[] = [
+  {
+    name: "germany",
+    id: 3,
+    code: "deu",
+  },
+  {
+    name: "english",
+    id: 0,
+    code: "eng",
+  },
+  {
+    name: "swedish",
+    id: 1,
+    code: "swe",
+  },
+  {
+    name: "french",
+    id: 2,
+    code: "fra",
+  },
+  {
+    name: "italian",
+    id: 4,
+    code: "ita",
+  },
+  {
+    name: "portuguese",
+    id: 5,
+    code: "por",
+  },
+  {
+    name: "afrikaans",
+    id: 6,
+    code: "afr",
+  },
+].sort((a, b) => a.name.localeCompare(b.name));
