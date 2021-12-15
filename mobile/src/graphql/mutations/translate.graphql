@@ -1,0 +1,5 @@
+mutation Translate($input: TranslationInputType!) {
+  translate(input: $input) {
+    translation
+  }
+}

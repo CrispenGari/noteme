@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
 import { Input } from "react-native-elements";
-import { FONTS, HEIGHT, WIDTH } from "../../constants";
-import { PageType } from "../../types";
+import { COLORS, FONTS, HEIGHT, WIDTH } from "../../constants";
+import { LanguageType, PageType } from "../../types";
 import Panel from "../panel/Panel";
 
 const NUMBER_OF_LINES: number = 200;
@@ -11,16 +11,30 @@ interface PageProps {
   page: PageType;
   seeTranslation: boolean;
   setSeeTranslation: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedLanguage: LanguageType;
+  setSelectedLanguage: React.Dispatch<React.SetStateAction<LanguageType>>;
+  translation: string;
+  content: string;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
+  deleteNote: () => void;
+  save: () => void;
+  setEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  detectedLanguage: any;
 }
 const Page: React.FC<PageProps> = ({
   page: { withPanel },
   seeTranslation,
   setSeeTranslation,
+  selectedLanguage,
+  setSelectedLanguage,
+  translation,
+  setContent,
+  content,
+  setEdit,
+  save,
+  deleteNote,
+  detectedLanguage,
 }) => {
-  const [content, setContent] = React.useState<string>("");
-  const [header, setHeader] = React.useState<string>("");
-  const [t, setT] = React.useState(false);
-
   return (
     <View
       style={{
@@ -33,6 +47,12 @@ const Page: React.FC<PageProps> = ({
         <Panel
           seeTranslation={seeTranslation}
           setSeeTranslation={setSeeTranslation}
+          selectedLanguage={selectedLanguage}
+          setSelectedLanguage={setSelectedLanguage}
+          setEdit={setEdit}
+          deleteNote={deleteNote}
+          save={save}
+          detectedLanguage={detectedLanguage}
         />
       )}
       {withPanel && (
@@ -53,59 +73,123 @@ const Page: React.FC<PageProps> = ({
           placeholder="notes title"
         />
       )}
-      <TextInput
-        onChangeText={(text) => setContent(text)}
-        placeholder="type notes here"
-        style={{
-          backgroundColor: "#f5f5f5",
-          flex: 1,
-          justifyContent: "flex-start",
-          textAlign: "left",
-          borderColor: "cornflowerblue",
-          borderRadius: 5,
-          borderWidth: 1,
-          padding: 10,
-          alignItems: "flex-start",
-          fontFamily: FONTS.regular,
-          textAlignVertical: "top",
-          maxHeight: HEIGHT * 0.7,
-          fontSize: 16,
-        }}
-        multiline
-        autoCapitalize="sentences"
-        autoCompleteType="cc-exp-year"
-        selectionColor="cornflowerblue"
-        spellCheck
-        underlineColorAndroid={"transparent"}
-        numberOfLines={15}
-      />
+      {!withPanel && (
+        <Text
+          style={{
+            color: "cornflowerblue",
+            fontSize: 20,
+            fontFamily: FONTS.regularBold,
+          }}
+        >
+          translation
+        </Text>
+      )}
+      {withPanel ? (
+        <TextInput
+          onChangeText={(text) => setContent(text)}
+          placeholder="type notes here"
+          style={{
+            backgroundColor: "#f5f5f5",
+            flex: 1,
+            justifyContent: "flex-start",
+            textAlign: "left",
+            borderColor: "cornflowerblue",
+            borderRadius: 5,
+            borderWidth: 1,
+            padding: 10,
+            alignItems: "flex-start",
+            fontFamily: FONTS.regular,
+            textAlignVertical: "top",
+            maxHeight: HEIGHT * 0.7,
+            fontSize: 16,
+          }}
+          multiline
+          autoCapitalize="sentences"
+          autoCompleteType="cc-exp-year"
+          selectionColor="cornflowerblue"
+          spellCheck
+          underlineColorAndroid={"transparent"}
+          numberOfLines={15}
+        />
+      ) : (
+        <TextInput
+          placeholder="translation here"
+          style={{
+            backgroundColor: "#f5f5f5",
+            flex: 1,
+            justifyContent: "flex-start",
+            textAlign: "left",
+            borderColor: "cornflowerblue",
+            borderRadius: 5,
+            borderWidth: 1,
+            padding: 10,
+            alignItems: "flex-start",
+            fontFamily: FONTS.regular,
+            textAlignVertical: "top",
+            maxHeight: HEIGHT * 0.7,
+            fontSize: 16,
+          }}
+          multiline
+          autoCapitalize="sentences"
+          autoCompleteType="cc-exp-year"
+          selectionColor="cornflowerblue"
+          spellCheck
+          underlineColorAndroid={"transparent"}
+          numberOfLines={15}
+          value={translation}
+        />
+      )}
+
       <View
         style={{
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           alignItems: "center",
           padding: 10,
           flexDirection: "row",
         }}
       >
-        <Text
+        {withPanel && (
+          <Text
+            style={{
+              color: "cornflowerblue",
+              fontFamily: FONTS.regular,
+              fontSize: 12,
+            }}
+          >
+            {detectedLanguage
+              ? `${detectedLanguage.prediction?.name} (${(
+                  detectedLanguage.probability * 100
+                ).toFixed(0)}%)`
+              : "none (100%)"}
+          </Text>
+        )}
+        <View
           style={{
-            fontFamily: FONTS.regular,
-            fontSize: 15,
-            color: "gray",
-            marginRight: 10,
+            flexDirection: "row",
           }}
         >
-          {content.trim().length} character(s)
-        </Text>
-        <Text
-          style={{
-            fontFamily: FONTS.regular,
-            fontSize: 15,
-            color: "gray",
-          }}
-        >
-          {content.trim().split(/\s/).length} words
-        </Text>
+          <Text
+            style={{
+              fontFamily: FONTS.regular,
+              fontSize: 12,
+              color: "gray",
+              marginRight: 10,
+            }}
+          >
+            {withPanel
+              ? `${content.trim().length} character(s)`
+              : `translated to ${selectedLanguage.name}`}
+          </Text>
+          <Text
+            style={{
+              fontFamily: FONTS.regular,
+              fontSize: 12,
+              color: "gray",
+            }}
+          >
+            {translation.trim().split(/\s/).length} words
+          </Text>
+        </View>
       </View>
     </View>
   );

@@ -226,7 +226,7 @@ print(" ✅ LOADING TRANSLATION MODELS DONE!\n")
 
 translation_models_blueprint = Blueprint("translation", __name__)
 
-def translate_sentence(sent, src_field, trg_field, trg_field_reversed, model, device, tokenizer=None, max_len=50):
+def translate_sentence(sent, src_field, trg_field, trg_field_reversed, model, device, tokenizer=None, max_len=10000):
     model.eval()
     if tokenizer is not None:
         tokens = [token.lower() for token in tokenizer(sent)]

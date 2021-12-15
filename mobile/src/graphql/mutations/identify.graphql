@@ -1,0 +1,10 @@
+mutation Identify($input: IdentificationInputType!) {
+  identify(input: $input) {
+    prediction {
+      code
+      id
+      name
+    }
+    probability
+  }
+}

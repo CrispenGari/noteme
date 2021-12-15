@@ -4,6 +4,9 @@ import { useFonts } from "expo-font";
 import { LogBox, View, Text, StatusBar } from "react-native";
 import Routes from "./src/routes";
 import { NavigationContainer } from "@react-navigation/native";
+import GraphQLApolloProvider from "./providers/GraphQLApolloProvider";
+import Center from "./src/components/center/Center";
+
 const App = () => {
   const [loaded] = useFonts({
     NunitoItalic: require("./assets/fonts/Nunito-Italic.ttf"),
@@ -13,14 +16,18 @@ const App = () => {
     NunitoExtraBold: require("./assets/fonts/Nunito-ExtraBold.ttf"),
     NunitoExtraBoldItalic: require("./assets/fonts/Nunito-ExtraBoldItalic.ttf"),
   });
-
   LogBox.ignoreAllLogs();
-
   if (!loaded) {
     return (
-      <View>
-        <Text>loading</Text>
-      </View>
+      <Center hideStatusBar={true}>
+        <Text
+          style={{
+            color: "cornflowerblue",
+          }}
+        >
+          loading...
+        </Text>
+      </Center>
     );
   } else {
     return (
@@ -31,7 +38,9 @@ const App = () => {
       >
         <StatusBar />
         <NavigationContainer>
-          <Routes />
+          <GraphQLApolloProvider>
+            <Routes />
+          </GraphQLApolloProvider>
         </NavigationContainer>
       </View>
     );
