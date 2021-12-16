@@ -23,6 +23,7 @@ const Panel: React.FC<PanelProps> = ({
   selectedLanguage,
   deleteNote,
   detectedLanguage,
+  save,
 }) => {
   return (
     <View
@@ -127,7 +128,7 @@ const Panel: React.FC<PanelProps> = ({
         <TouchableOpacity style={styles.panel__button} onPress={deleteNote}>
           <MaterialIcons name="delete" size={24} color="gray" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.panel__button}>
+        <TouchableOpacity style={styles.panel__button} onPress={save}>
           <MaterialIcons name="save" size={24} color="cornflowerblue" />
         </TouchableOpacity>
       </View>

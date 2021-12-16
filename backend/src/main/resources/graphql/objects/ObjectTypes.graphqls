@@ -1,0 +1,22 @@
+type Error{
+    message: String!
+    field: String!
+}
+type NotesType{
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+    id: Int!
+}
+type IpAddressType{
+    createdAt: String!
+    updatedAt: String!
+    ipAddress: String!
+    id: Int!
+#    notes: [NotesType!]
+}
+type CreateIpAddressResponse{
+    error: Error
+    ipAddress: IpAddressType
+}

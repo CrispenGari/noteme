@@ -3,8 +3,12 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 // Authentication Param Lists
 export type AppParamList = {
-  Home: undefined;
-  Editor: undefined;
+  Home: {
+    ipAddress: string;
+  };
+  Editor: {
+    ipAddress: string;
+  };
 };
 
 export type AppNavProps<T extends keyof AppParamList> = {

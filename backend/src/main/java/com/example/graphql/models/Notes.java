@@ -1,19 +1,16 @@
 package com.example.graphql.models;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Value
-@Builder
+@Entity
+@Table(name = "notes")
+@NoArgsConstructor
+@Data
 public class Notes extends SharedColumns implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String ipAddress;
 
     @Column(nullable = false)
     private String title;
@@ -21,4 +18,7 @@ public class Notes extends SharedColumns implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ipAddress_id", nullable = false)
+    private IpAddress ipAddress;
 }

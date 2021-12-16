@@ -11,6 +11,7 @@ import {
   useIdentifyMutation,
   useTranslateMutation,
 } from "../../generated/graphql";
+import * as Network from "expo-network";
 const pages: PageType[] = [
   {
     page: 1,
@@ -22,9 +23,10 @@ const pages: PageType[] = [
   },
 ];
 
-const Home: React.FC<AppNavProps<"Home">> = ({ navigation }) => {
+const Home: React.FC<AppNavProps<"Home">> = ({ navigation, route }) => {
   // states that are set from children components
   const [seeTranslation, setSeeTranslation] = React.useState<boolean>(false);
+  const [title, setTitle] = React.useState<string>("");
   const [selectedLanguage, setSelectedLanguage] = React.useState<LanguageType>(
     LANGUAGES[3]
   );
@@ -136,7 +138,10 @@ const Home: React.FC<AppNavProps<"Home">> = ({ navigation }) => {
       mounted = false;
     };
   }, [content]);
-  const save = async () => {};
+  const save = async () => {
+    const ipAddress = await Network.getIpAddressAsync();
+    console.log(ipAddress, content, title);
+  };
   const deleteNote = async () => {
     console.log("delete");
   };
@@ -164,6 +169,8 @@ const Home: React.FC<AppNavProps<"Home">> = ({ navigation }) => {
           deleteNote={deleteNote}
           setEdit={setEdit}
           detectedLanguage={detectedLanguage}
+          title={title}
+          setTitle={setTitle}
         />
         {seeTranslation && (
           <Page

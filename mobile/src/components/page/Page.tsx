@@ -20,6 +20,8 @@ interface PageProps {
   save: () => void;
   setEdit: React.Dispatch<React.SetStateAction<boolean>>;
   detectedLanguage: any;
+  title?: string;
+  setTitle?: React.Dispatch<React.SetStateAction<string>>;
 }
 const Page: React.FC<PageProps> = ({
   page: { withPanel },
@@ -34,6 +36,8 @@ const Page: React.FC<PageProps> = ({
   save,
   deleteNote,
   detectedLanguage,
+  title,
+  setTitle,
 }) => {
   return (
     <View
@@ -55,8 +59,10 @@ const Page: React.FC<PageProps> = ({
           detectedLanguage={detectedLanguage}
         />
       )}
-      {withPanel && (
+      {withPanel && setTitle && (
         <TextInput
+          onChangeText={(text) => setTitle(text)}
+          value={title}
           style={{
             backgroundColor: "#f5f5f5",
             width: "100%",

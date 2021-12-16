@@ -1,8 +1,9 @@
 package com.example.graphql.services;
 
+import com.example.graphql.models.IpAddress;
 import com.example.graphql.models.Notes;
 import com.example.graphql.repositories.NotesRepository;
-import com.example.graphql.repositories.PhoneConfigRepository;
+import com.example.graphql.repositories.IpAddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.Collection;
 public class NotesService implements NotesServiceInterface{
 
     private final NotesRepository repository;
-    private final PhoneConfigRepository phoneConfigRepository;
+    private final IpAddressRepository phoneConfigRepository;
     @Override
     public Notes createNote(Notes note) {
         return  this.repository.save(note);
@@ -43,10 +44,10 @@ public class NotesService implements NotesServiceInterface{
 
     @Override
     public Collection<Notes> findNotes(String ipAddress) {
-        PhoneConfig config = this.phoneConfigRepository.findByIpAddress(ipAddress);
-        if(config.getIpAddress() == null){
+        IpAddress ip = this.phoneConfigRepository.findByIpAddress(ipAddress);
+        if(ip.getIpAddress() == null){
             throw new RuntimeException("failed to get the config.");
         }
-      return config.getNotes();
+      return ip.getNotes();
     }
 }
