@@ -16,7 +16,7 @@ type IpAddressType{
     id: Int!
 #    notes: [NotesType!]
 }
-type CreateIpAddressResponse{
+type IpAddressResponse{
     error: Error
     ipAddress: IpAddressType
 }

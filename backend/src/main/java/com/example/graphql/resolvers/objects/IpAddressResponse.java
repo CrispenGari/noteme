@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Builder
 @Value
-public class CreateIpAddressResponse {
+public class IpAddressResponse {
     private Error error;
     private IpAddressType ipAddress;
 }

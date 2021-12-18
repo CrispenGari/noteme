@@ -21,6 +21,4 @@ public class IpAddress extends SharedColumns implements Serializable {
     @OneToMany(mappedBy = "ipAddress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Notes> notes;
 
-
-
 }

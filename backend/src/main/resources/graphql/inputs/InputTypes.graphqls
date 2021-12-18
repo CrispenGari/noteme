@@ -2,6 +2,6 @@
 input NoteInput{
     title: String!
 }
-input CreateIPAddressInput{
+input IpAddressInput{
     ipAddress: String!
 }
