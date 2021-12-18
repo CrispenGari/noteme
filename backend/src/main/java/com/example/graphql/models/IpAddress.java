@@ -4,7 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Collection;
+
 
 @Entity
 @Table(name="ip_addresses")
@@ -18,7 +19,7 @@ public class IpAddress extends SharedColumns implements Serializable {
     @Column(unique = true, nullable = false)
     private String ipAddress;
 
-    @OneToMany(mappedBy = "ipAddress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Notes> notes;
+    @OneToMany(mappedBy = "ipAddress", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Collection<Note> notes;
 
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name = "notes")
 @NoArgsConstructor
 @Data
-public class Notes extends SharedColumns implements Serializable {
+public class Note extends SharedColumns implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     private Long id;
@@ -18,7 +18,7 @@ public class Notes extends SharedColumns implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ipAddress_id", nullable = false)
     private IpAddress ipAddress;
 }

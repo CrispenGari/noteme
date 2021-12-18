@@ -1,11 +1,13 @@
 package com.example.graphql.resolvers.objects;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Value;
 
 @Value
 @Builder
-public class NotesType {
+@Data
+public class NoteType {
     private String createdAt;
     private String updatedAt;
     private String content;

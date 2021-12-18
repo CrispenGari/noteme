@@ -1,10 +1,10 @@
 package com.example.graphql.resolvers.objects;
 
 
+import com.example.graphql.models.Note;
 import lombok.Builder;
 import lombok.Value;
-
-import java.util.Set;
+import java.util.Collection;
 
 @Value
 @Builder
@@ -13,5 +13,5 @@ public class IpAddressType {
     private String updatedAt;
     private String ipAddress;
     private Long id;
-//    private Set<NotesType> notes;
+    private Collection<NoteType> notes;
 }

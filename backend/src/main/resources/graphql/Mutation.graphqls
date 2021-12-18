@@ -1,4 +1,5 @@
 type Mutation{
     createIpAddress(input: IpAddressInput!): IpAddressResponse!
     deleteIpAddress(input: IpAddressInput!): Boolean!
+    createNote(input: NoteInput!): NoteResponse!
 }

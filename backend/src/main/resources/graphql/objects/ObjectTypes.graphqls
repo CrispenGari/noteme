@@ -2,19 +2,24 @@ type Error{
     message: String!
     field: String!
 }
-type NotesType{
+type NoteType{
     createdAt: String!
     updatedAt: String!
     title: String!
     content: String!
     id: Int!
 }
+type NoteResponse{
+    error: Error
+    note: NoteType
+}
+
 type IpAddressType{
     createdAt: String!
     updatedAt: String!
     ipAddress: String!
     id: Int!
-#    notes: [NotesType!]
+    notes: [NoteType!]
 }
 type IpAddressResponse{
     error: Error

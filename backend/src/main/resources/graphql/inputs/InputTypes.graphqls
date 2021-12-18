@@ -1,7 +1,10 @@
 
 input NoteInput{
     title: String!
+    ipAddress: String!
+    content: String!
 }
+
 input IpAddressInput{
     ipAddress: String!
 }
