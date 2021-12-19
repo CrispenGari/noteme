@@ -1,4 +1,5 @@
 type Query{
   hello: String!
   findIpAddress(input: IpAddressInput!): IpAddressResponse!
+  findNote(input: GetNoteInput!): NoteResponse!
 }

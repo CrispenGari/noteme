@@ -18,7 +18,7 @@ public class Note extends SharedColumns implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ipAddress_id", nullable = false)
     private IpAddress ipAddress;
 }

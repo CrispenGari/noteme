@@ -5,6 +5,15 @@ input NoteInput{
     content: String!
 }
 
+input UpdateNoteInput{
+    id: Int!
+    content: String
+    title: String!
+}
+
+input GetNoteInput{
+    id: Int!
+}
 input IpAddressInput{
     ipAddress: String!
 }

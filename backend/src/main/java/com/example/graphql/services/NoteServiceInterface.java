@@ -10,5 +10,4 @@ public interface NoteServiceInterface {
     Note updateNote(Note note);
     Boolean deleteNote(Long id);
     Note findNote(Long id);
-    Collection<Note> findNotes(String ipAddress);
 }
